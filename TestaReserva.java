@@ -33,8 +33,15 @@ public class TestaReserva {
             System.out.println("CheckOut data: ");
             checkOut = sdf.parse(teclado.next());
 
-            reserva.updateDates(checkIn,checkOut);
-            System.out.println("Reserva: " + reserva);
+            String erro = reserva.updateDates(checkIn,checkOut);
+            if(erro!=null)
+            {
+                System.out.println("Erro: " + erro);
+            }
+            else
+            {
+                System.out.println("Reserva: " + reserva);
+            }
         }
         teclado.close();
     }
