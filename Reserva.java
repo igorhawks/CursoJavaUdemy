@@ -1,4 +1,6 @@
-package Capitulo15Exception;
+package Capitulo15.CursoJavaUdemy;
+
+import Capitulo15.CursoJavaUdemy.DominioException.DomainException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,7 +13,11 @@ public class Reserva {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Reserva(Integer roomNumber, Date checkIn, Date checkOut) {
+    public Reserva(Integer roomNumber, Date checkIn, Date checkOut) throws DomainException{
+        if(!checkOut.after(checkIn))
+        {
+            throw new DomainException("erro, CheckOut anterior ao checkIn");
+        }
         this.roomNumber = roomNumber;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -41,22 +47,21 @@ public class Reserva {
 
     }
 
-    public String updateDates( Date checkIn, Date checkOut)
-    {
+    public void updateDates( Date checkIn, Date checkOut) throws DomainException {
         Date now = new Date();
         if(checkIn.before(now) || checkOut.before(now))
         {
-            return "erro, data passada";
+            throw new DomainException("erro data passada");
         }
 
         if(!checkOut.after(checkIn))
         {
-            return "erro, CheckOut anterior ao checkIn";
+            throw new DomainException("erro, CheckOut anterior ao checkIn");
         }
 
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        return null;
+
 
     }
 
